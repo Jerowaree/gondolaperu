@@ -4,6 +4,7 @@
 // =============================================================================
 
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { BrandLoader } from '@/components/ui/BrandLoader'
@@ -33,19 +34,38 @@ const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1))
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+    }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }, [pathname])
+  }, [pathname, hash])
 
   return null
 }
 
+const SPLASH_MIN_MS = 1800
+
 export function AppRouter() {
+  const [splashDone, setSplashDone] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSplashDone(true), SPLASH_MIN_MS)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <>
       <ScrollToTop />
+      <AnimatePresence>
+        {!splashDone && <BrandLoader key="brand-splash" />}
+      </AnimatePresence>
       <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />

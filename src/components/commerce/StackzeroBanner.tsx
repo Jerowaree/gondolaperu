@@ -14,6 +14,8 @@ interface StackzeroBannerProps {
   variant?: 'automotriz' | 'construccion'
   icon?: ReactNode
   className?: string
+  /** Alineación del contenido: 'left' (default) o 'right' para banners espejo */
+  contentAlign?: 'left' | 'right'
 }
 
 export function StackzeroBanner({
@@ -26,6 +28,7 @@ export function StackzeroBanner({
   imageUrl,
   variant = 'automotriz',
   className = '',
+  contentAlign = 'left',
 }: StackzeroBannerProps) {
   const isAutomotriz = variant === 'automotriz'
 
@@ -53,7 +56,11 @@ export function StackzeroBanner({
 
       {/* Contenido */}
       <div className="relative z-10 flex flex-col justify-between min-h-[280px] p-8 lg:p-10">
-        <div className="space-y-4 max-w-lg">
+        <div
+          className={`space-y-4 max-w-lg ${
+            contentAlign === 'right' ? 'lg:self-end lg:flex lg:flex-col lg:items-end lg:text-right' : ''
+          }`}
+        >
           {/* Badge limpio — sin blur, sin transparencia */}
           <span className={`inline-block px-3 py-1 text-[11px] font-bold uppercase tracking-widest ${badgeBg} ${badgeText}`}>
             {badge}
@@ -68,13 +75,13 @@ export function StackzeroBanner({
           </h3>
 
           {/* Descripción */}
-          <p className="text-sm text-white/75 leading-relaxed max-w-sm">
+          <p className="text-sm text-white/75 leading-relaxed max-w-sm lg:self-end">
             {description}
           </p>
         </div>
 
         {/* CTA */}
-        <div className="pt-8">
+        <div className={`pt-8 ${contentAlign === 'right' ? 'lg:flex lg:justify-end' : ''}`}>
           <Link
             to={linkTo}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#003865] text-sm font-bold hover:bg-[#FCB800] hover:text-[#172B3A] transition-colors duration-150"

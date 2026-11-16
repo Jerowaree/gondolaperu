@@ -11,7 +11,7 @@ import { useSiteContext } from '@/contexts/SiteContext'
 import { useCart } from '@/contexts/CartContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { LoginModal } from '@/components/auth/LoginModal'
-import { getCategoriesByLine } from '@/lib/categories'
+import { getCategories, getCategoriesByLine } from '@/lib/categories'
 import { buildWhatsAppUrl } from '@/config/site'
 import { cn } from '@/lib/utils'
 
@@ -30,7 +30,11 @@ function SearchLineSelect({
 }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const selected = LINE_OPTIONS.find((o) => o.value === value) ?? LINE_OPTIONS[0]
+  const availableLines = new Set(getCategories().map((c) => c.line))
+  const lineOptions = LINE_OPTIONS.filter(
+    (o) => o.value === '' || availableLines.has(o.value as 'automotriz' | 'construccion'),
+  )
+  const selected = lineOptions.find((o) => o.value === value) ?? lineOptions[0]
 
   // Cierra al hacer click fuera
   useEffect(() => {
@@ -66,7 +70,7 @@ function SearchLineSelect({
       {/* Panel */}
       {open && (
         <div className="absolute top-full left-0 mt-1 w-44 bg-white border border-slate-200 shadow-lg z-50 overflow-hidden">
-          {LINE_OPTIONS.map((opt) => (
+          {lineOptions.map((opt) => (
             <button
               key={opt.value}
               type="button"
@@ -145,13 +149,17 @@ export function Header() {
       viewAllHref: '/catalogo?linea=automotriz',
       viewAllLabel: 'Ver todo Automotriz',
     },
-    {
-      label: 'Línea Construcción',
-      accentColor: 'amber' as const,
-      items: constCategories.map((c) => ({ id: c.id, name: c.name, href: `/categorias/${c.slug}` })),
-      viewAllHref: '/catalogo?linea=construccion',
-      viewAllLabel: 'Ver todo Construcción',
-    },
+    ...(constCategories.length > 0
+      ? [
+          {
+            label: 'Línea Construcción',
+            accentColor: 'amber' as const,
+            items: constCategories.map((c) => ({ id: c.id, name: c.name, href: `/categorias/${c.slug}` })),
+            viewAllHref: '/catalogo?linea=construccion',
+            viewAllLabel: 'Ver todo Construcción',
+          },
+        ]
+      : []),
   ]
 
   return (

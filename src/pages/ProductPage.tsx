@@ -10,6 +10,7 @@ import {
   FileText,
   Check,
   MapPin,
+  Tag,
 } from 'lucide-react'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Container } from '@/components/ui/Container'
@@ -30,7 +31,7 @@ import { ProductInquiryButton } from '@/components/whatsapp/ProductInquiryButton
 import { getProductBySlug, getRelatedProducts } from '@/lib/products'
 import { getCategoryById } from '@/lib/categories'
 import { siteConfig, whatsappConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
+import { cn, formatPrice } from '@/lib/utils'
 
 export default function ProductPage() {
   const { slug = '' } = useParams<{ slug: string }>()
@@ -112,6 +113,37 @@ export default function ProductPage() {
                   </div>
                 ))}
               </div>
+
+              {/* ── Card de presentaciones y precios ── */}
+              {product.presentations && product.presentations.length > 0 && (
+                <Card className="rounded-2xl ring-slate-200/80">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-[#003865]">
+                      <Tag className="w-4 h-4 text-[#0082D6]" />
+                      Presentaciones y Precios
+                    </CardTitle>
+                    <CardDescription>Precios en soles, incluye IGV</CardDescription>
+                  </CardHeader>
+                  <CardContent className="px-0 pb-0">
+                    <ul className="divide-y divide-slate-100 border-y border-slate-100">
+                      {product.presentations.map((pres, idx) => (
+                        <li
+                          key={pres.label}
+                          className={cn(
+                            'flex items-center justify-between gap-4 px-6 sm:px-8 py-4 text-sm',
+                            idx % 2 === 0 ? 'bg-slate-50/60' : 'bg-white'
+                          )}
+                        >
+                          <span className="font-medium text-slate-600 pl-5">{pres.label}</span>
+                          <span className="font-bold text-[#003865] whitespace-nowrap tabular-nums pr-5">
+                            {formatPrice(pres.price)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             {/* Columna comercial — sticky en desktop (6 cols) */}
@@ -202,7 +234,7 @@ export default function ProductPage() {
                         <div
                           key={spec.name}
                           className={cn(
-                            'grid grid-cols-[40%_1fr] sm:grid-cols-[220px_1fr] px-5 sm:px-6 py-3 text-sm',
+                            'grid grid-cols-[40%_1fr] sm:grid-cols-[220px_1fr] px-6 sm:px-8 py-3.5 text-sm',
                             idx % 2 === 0 ? 'bg-slate-50/60' : 'bg-white'
                           )}
                         >

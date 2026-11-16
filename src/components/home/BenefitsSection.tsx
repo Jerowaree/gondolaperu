@@ -6,14 +6,14 @@ const blocks = [
     icon: Grid3X3,
     title: 'Amplio Catálogo',
     description:
-      'Repuestos automotrices, materiales de construcción y herramientas organizadas en dos líneas especializadas.',
+      'Catálogo de detailing organizado por rubros: aros, interiores, shampoos, ceras, microfibras y accesorios.',
   },
   {
     id: 'asesoria',
     icon: Headphones,
     title: 'Asesoría Técnica',
     description:
-      'Orientación especializada para elegir el repuesto exacto o los materiales precisos para su proyecto.',
+      'Orientación especializada para elegir el producto exacto según la superficie y el tipo de vehículo.',
   },
   {
     id: 'atencion',

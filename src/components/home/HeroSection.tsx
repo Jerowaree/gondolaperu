@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Package, HardHat } from 'lucide-react'
+import { motion, animate } from 'framer-motion'
+import { ArrowRight, Package, Wrench } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppUrl } from '@/config/site'
 import { handleImageError } from '@/lib/utils'
@@ -55,37 +55,39 @@ function AnimatedAccent({ text, color, active }: { text: string; color: string; 
 
 const slides = [
   {
-    id: 'automotriz',
+    id: 'detailing',
     image:
       'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1600&h=720&fit=crop&q=85',
-    lineBadge: 'Línea Automotriz',
+    lineBadge: 'Línea Detailing',
     lineBadgeColor: 'bg-[#0082D6] text-white',
     LineIcon: Package,
-    title: 'Repuestos Automotrices',
-    titleAccent: 'para Talleres y Flotas',
+    title: 'Cuidado y Detailing',
+    titleAccent: 'Automotriz Premium',
     subtitle:
-      'Autopartes, baterías, frenos, amortiguadores, lubricantes y componentes mecánicos. Atención personalizada y cotización inmediata en Piura.',
-    primaryLabel: 'Ver Repuestos',
+      'Shampoos, ceras, acondicionadores, desengrasantes y accesorios profesionales para el cuidado de tu vehículo. Precios claros y cotización inmediata en Piura.',
+    primaryLabel: 'Ver Productos',
     line: 'automotriz' as CommercialLine,
+    action: 'line' as const,
     secondaryLabel: 'Cotizar ahora',
     accentColor: '#0082D6',
     overlayFrom: 'from-[#001428]/90',
     overlayVia: 'via-[#002647]/65',
   },
   {
-    id: 'construccion',
+    id: 'servicios',
     image:
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&h=720&fit=crop&q=85',
-    lineBadge: 'Línea Construcción',
+      'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1600&h=720&fit=crop&q=85',
+    lineBadge: 'Línea Complementaria',
     lineBadgeColor: 'bg-[#FCB800] text-slate-900',
-    LineIcon: HardHat,
-    title: 'Materiales de Obra',
-    titleAccent: 'y Ferretería Industrial',
+    LineIcon: Wrench,
+    title: 'Servicios de Taller',
+    titleAccent: 'y Mantenimiento',
     subtitle:
-      'Cemento, herramientas, PVC, pernería, aditivos y suministros para proyectos de construcción y refacción. Consulta directa y precios para Piura.',
-    primaryLabel: 'Ver Materiales',
-    line: 'construccion' as CommercialLine,
-    secondaryLabel: 'Cotizar ahora',
+      'Mantenimiento preventivo, sistema de frenos, suspensión y dirección, y diagnóstico eléctrico. Técnicos especializados en Piura.',
+    primaryLabel: 'Ver Servicios',
+    line: 'automotriz' as CommercialLine,
+    action: 'services' as const,
+    secondaryLabel: 'Agendar servicio',
     accentColor: '#FCB800',
     overlayFrom: 'from-[#0d1a0d]/92',
     overlayVia: 'via-[#172B3A]/65',
@@ -97,6 +99,21 @@ export function HeroSection({ onExploreLine }: HeroSectionProps) {
   const [paused, setPaused] = useState(false)
 
   const goTo = useCallback((index: number) => setActive(index), [])
+
+  const scrollToSection = useCallback((id: string) => {
+    const el = document.getElementById(id)
+    if (!el) return
+    const targetY = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 88)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, targetY)
+      return
+    }
+    animate(window.scrollY, targetY, {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => window.scrollTo(0, v),
+    })
+  }, [])
 
   useEffect(() => {
     if (paused) return
@@ -190,7 +207,11 @@ export function HeroSection({ onExploreLine }: HeroSectionProps) {
                     <Button
                       variant="accent"
                       size="lg"
-                      onClick={() => onExploreLine(slide.line)}
+                      onClick={() =>
+                        slide.action === 'services'
+                          ? scrollToSection('servicios')
+                          : onExploreLine(slide.line)
+                      }
                       icon={<LineIcon className="w-4 h-4" />}
                       iconRight={<ArrowRight className="w-4 h-4" />}
                     >

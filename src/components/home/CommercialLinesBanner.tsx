@@ -1,34 +1,35 @@
-import { Shield, Wrench } from 'lucide-react'
+import { Sparkles, Wrench } from 'lucide-react'
 import { StackzeroBanner } from '@/components/commerce/StackzeroBanner'
 
 export function CommercialLinesBanner() {
   return (
     <section className="bg-[#F5F7F9] py-0">
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        {/* Banner Línea Automotriz */}
+        {/* Banner Línea Detailing Automotriz */}
         <StackzeroBanner
-          badge="Línea Automotriz"
+          badge="Línea Detailing"
           variant="automotriz"
-          icon={<Shield className="w-3.5 h-3.5 inline text-[#bae6fd]" />}
-          title="Repuestos, Autopartes y"
-          highlightText="Accesorios"
-          description="Baterías, pastillas de freno, amortiguadores, lubricantes, fajas y componentes mecánicos para vehículos ligeros, camionetas y transporte comercial."
-          linkText="Explorar Repuestos Automotrices"
+          icon={<Sparkles className="w-3.5 h-3.5 inline text-[#bae6fd]" />}
+          title="Cuidado, Lavado y"
+          highlightText="Detailing Premium"
+          description="Shampoos pH neutro, ceras hidrofóbicas, acondicionadores, desengrasantes y accesorios profesionales Auto Premium para vehículos de todos los tamaños."
+          linkText="Explorar Productos de Detailing"
           linkTo="/catalogo?linea=automotriz"
-          imageUrl="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&h=600&fit=crop&q=85"
+          imageUrl="/products/champu-con-cera-ph-neutro-shampoo-ultra-wax-20-litros.jpg"
         />
 
-        {/* Banner Línea Construcción */}
+        {/* Banner Línea Complementaria: Servicios de Taller */}
         <StackzeroBanner
-          badge="Línea Construcción"
-          variant="construccion"
-          icon={<Wrench className="w-3.5 h-3.5 inline text-amber-300" />}
-          title="Materiales de Obra y"
-          highlightText="Ferretería"
-          description="Cemento, herramientas manuales y eléctricas, tuberías de PVC, pernería, aditivos y suministros para proyectos de construcción civil y refacción."
-          linkText="Explorar Materiales de Construcción"
-          linkTo="/catalogo?linea=construccion"
-          imageUrl="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&h=600&fit=crop&q=85"
+          badge="Línea Complementaria"
+          variant="automotriz"
+          icon={<Wrench className="w-3.5 h-3.5 inline text-[#bae6fd]" />}
+          title="Servicios de Taller y"
+          highlightText="Mantenimiento"
+          description="Mantenimiento preventivo, sistema de frenos, suspensión y dirección, y diagnóstico del sistema eléctrico con técnicos especializados en Piura."
+          linkText="Ver Servicios de Taller"
+          linkTo="/#servicios"
+          imageUrl="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=900&h=600&fit=crop&q=85"
+          contentAlign="right"
         />
       </div>
     </section>

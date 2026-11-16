@@ -2,7 +2,10 @@ import { motion } from 'framer-motion'
 
 export function BrandLoader() {
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC]">
+    <motion.div
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F8FAFC]"
+      exit={{ opacity: 0, transition: { duration: 0.4, ease: 'easeOut' } }}
+    >
       <motion.img
         src="/logos/gondolalogo.png"
         alt="GÓNDOLA PERÚ"
@@ -34,6 +37,6 @@ export function BrandLoader() {
           transition={{ duration: 1.1, delay: 0.35, times: [0, 0.5, 0.8, 1], ease: 'easeInOut' }}
         />
       </motion.div>
-    </div>
+    </motion.div>
   )
 }

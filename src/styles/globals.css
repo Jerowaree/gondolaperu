@@ -37,12 +37,15 @@
   box-sizing: border-box;
 }
 
-/* Reset solo margin/padding de elementos de bloque — no tocar elementos inline ni botones */
-h1, h2, h3, h4, h5, h6,
-p, blockquote, figure, dl, dd, pre,
-ul, ol, li, fieldset, legend, details, summary {
-  margin: 0;
-  padding: 0;
+/* Reset solo margin/padding de elementos de bloque — no tocar elementos inline ni botones.
+   Debe vivir en @layer base para que las utilidades de Tailwind (mx-auto, mt-*, etc.) ganen. */
+@layer base {
+  h1, h2, h3, h4, h5, h6,
+  p, blockquote, figure, dl, dd, pre,
+  ul, ol, li, fieldset, legend, details, summary {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 html {

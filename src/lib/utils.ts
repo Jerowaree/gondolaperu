@@ -36,10 +36,19 @@ export function isExternalUrl(url: string): boolean {
 }
 
 /**
+ * Formatea un precio en soles: 18 -> "S/ 18.00"
+ */
+export function formatPrice(value: number): string {
+  return `S/ ${new Intl.NumberFormat('es-PE', {
+    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(value)}`
+}
+
+/**
  * Imagen de respaldo SVG corporativo de alta calidad si falla una carga de imagen
  */
-export const FALLBACK_IMAGE =
-  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23002647"/><circle cx="300" cy="170" r="44" fill="%23003865"/><path d="M285 170 L300 155 L315 170" stroke="%23fcb800" stroke-width="4" fill="none" stroke-linecap="round"/><text x="50%" y="240" dominant-baseline="middle" text-anchor="middle" fill="%23fcb800" font-family="sans-serif" font-size="22" font-weight="bold">G%C3%93NDOLA PER%C3%9A</text><text x="50%" y="270" dominant-baseline="middle" text-anchor="middle" fill="%23bae6fd" font-family="sans-serif" font-size="14">Automotriz y Construcci%C3%B3n</text></svg>'
+export const FALLBACK_IMAGE = '/placeholder.svg'
 
 /**
  * Manejador onError para etiquetas <img> que previene iconos de imagen rota

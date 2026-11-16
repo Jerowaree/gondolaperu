@@ -14,7 +14,7 @@ export function FeaturedProducts() {
         <SectionTitle
           pretitle="Selección especial"
           title="Productos Destacados del Catálogo"
-          subtitle="Autopartes de alta rotación y materiales de construcción demandados en Piura, listos para cotización inmediata."
+          subtitle="Productos Auto Premium más solicitados en Piura: shampoos, ceras, acondicionadores y accesorios de detailing."
           action={
             <Button
               to="/catalogo"

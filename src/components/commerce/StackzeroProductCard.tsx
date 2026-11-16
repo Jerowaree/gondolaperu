@@ -5,7 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import type { Product } from '@/types/product'
 import { getCategoryById } from '@/lib/categories'
 import { buildWhatsAppUrl, whatsappConfig } from '@/config/site'
-import { handleImageError, cn } from '@/lib/utils'
+import { FALLBACK_IMAGE, formatPrice, handleImageError, cn } from '@/lib/utils'
 import { useCart } from '@/contexts/CartContext'
 
 interface StackzeroProductCardProps {
@@ -15,9 +15,10 @@ interface StackzeroProductCardProps {
 
 export function StackzeroProductCard({ product, className = '' }: StackzeroProductCardProps) {
   const category = getCategoryById(product.categoryId)
-  const primaryImage =
-    product.images[0] ||
-    'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=600&h=450&fit=crop&q=80'
+  const primaryImage = product.images[0] || FALLBACK_IMAGE
+  const minPrice = product.presentations?.length
+    ? Math.min(...product.presentations.map((p) => p.price))
+    : undefined
   const isAutomotriz = product.line === 'automotriz'
   const whatsappUrl = buildWhatsAppUrl(whatsappConfig.productMessage(product.name))
 
@@ -46,7 +47,7 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
             alt={product.name}
             loading="lazy"
             onError={handleImageError}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            className="w-full h-full object-contain p-4 sm:p-6 transition-transform duration-500 group-hover:scale-[1.04]"
           />
         </Link>
 
@@ -119,6 +120,12 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
         <p className="mt-0.5 text-xs text-slate-400 line-clamp-2 leading-relaxed">
           {product.shortDescription}
         </p>
+
+        {minPrice !== undefined && (
+          <p className="mt-1.5 text-sm font-bold text-[#003865]">
+            Desde {formatPrice(minPrice)}
+          </p>
+        )}
       </div>
 
       {/* ── Acciones ─────────────────────────────────────── */}

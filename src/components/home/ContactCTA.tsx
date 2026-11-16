@@ -22,7 +22,6 @@ export function ContactCTA() {
             Cotiza en minutos.
             <span className="block text-[#FCB800] mt-2">Te atendemos ahora.</span>
           </h2>
-
           <p className="text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
             Escríbenos por WhatsApp o llámanos directamente. Disponibilidad, marcas, especificaciones técnicas y precios para {company.city} y la región.
           </p>

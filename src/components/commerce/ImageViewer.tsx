@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { handleImageError } from '@/lib/utils'
+import { FALLBACK_IMAGE, handleImageError } from '@/lib/utils'
 
 interface ImageViewerProps {
   images: string[]
@@ -10,17 +10,17 @@ interface ImageViewerProps {
 export function ImageViewer({ images, title, className = '' }: ImageViewerProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
-  const activeImage = images[selectedIndex] || images[0]
+  const activeImage = images[selectedIndex] || images[0] || FALLBACK_IMAGE
 
   return (
     <div className={`space-y-4 ${className}`}>
       {/* Vista principal grande */}
-      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-slate-50 border border-slate-200/90 shadow-md flex items-center justify-center p-2">
+      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-white border border-slate-200/90 shadow-md flex items-center justify-center p-4 sm:p-8">
         <img
           src={activeImage}
           alt={title}
           onError={handleImageError}
-          className="w-full h-full object-cover object-center rounded-2xl transition-all duration-300"
+          className="w-full h-full object-contain object-center transition-all duration-300"
         />
       </div>
 
@@ -40,7 +40,7 @@ export function ImageViewer({ images, title, className = '' }: ImageViewerProps)
               title={`Ver foto ${idx + 1}`}
               aria-label={`Ver foto ${idx + 1} de ${title}`}
             >
-              <img src={img} alt="" className="w-full h-full object-cover" />
+              <img src={img} alt="" className="w-full h-full object-contain p-1" />
             </button>
           ))}
         </div>

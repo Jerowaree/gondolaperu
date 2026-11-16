@@ -87,7 +87,7 @@ export default function FavoritesPage() {
                           alt={product.name}
                           loading="lazy"
                           onError={handleImageError}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       </Link>
 

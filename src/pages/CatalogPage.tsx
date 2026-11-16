@@ -54,6 +54,20 @@ export default function CatalogPage() {
   const allCategories = getCategories()
   const allProducts = getProducts()
 
+  // Solo líneas con categorías activas
+  const availableLines = useMemo(
+    () => new Set(allCategories.map((c) => c.line)),
+    [allCategories],
+  )
+
+  const visibleLineKeys = useMemo(
+    () =>
+      (Object.keys(LINE_META) as Array<keyof typeof LINE_META>).filter(
+        (key) => key === 'todas' || availableLines.has(key as CommercialLine),
+      ),
+    [availableLines],
+  )
+
   const lineCounts = useMemo(
     () => ({
       todas: allProducts.length,
@@ -120,10 +134,10 @@ export default function CatalogPage() {
   return (
     <MainLayout>
       <Helmet>
-        <title>Catálogo de Repuestos y Materiales — {siteConfig.name}</title>
+        <title>Catálogo de Detailing y Cuidado Automotriz — {siteConfig.name}</title>
         <meta
           name="description"
-          content="Explora el catálogo de repuestos automotrices, partes mecánicas, accesorios y materiales de construcción de GÓNDOLA PERÚ en Piura."
+          content="Explora el catálogo de shampoos, ceras, acondicionadores, desengrasantes y accesorios de detailing de GÓNDOLA PERÚ en Piura. Precios claros por presentación."
         />
       </Helmet>
 
@@ -131,7 +145,7 @@ export default function CatalogPage() {
       <section className="relative overflow-hidden bg-[#003865] text-white">
         {/* Imagen de fondo */}
         <img
-          src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&h=640&fit=crop&q=85"
+          src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1600&h=640&fit=crop&q=85"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"
@@ -163,41 +177,41 @@ export default function CatalogPage() {
             </span>
 
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.05]">
-              Repuestos y materiales,
-              <span className="block text-[#FCB800] mt-1">todo en un solo catálogo</span>
+              Detailing y cuidado
+              <span className="block text-[#FCB800] mt-1">automotriz profesional</span>
             </h1>
 
             <p className="mt-5 text-sm sm:text-base text-white/75 leading-relaxed max-w-xl">
-              Explora fichas técnicas, especificaciones y disponibilidad de nuestra línea
-              automotriz y de construcción. Filtra por rubro y solicita cotización directa.
+              Explora fichas técnicas, precios por presentación y disponibilidad de nuestra
+              línea de detailing. Filtra por rubro y solicita cotización directa.
             </p>
 
             {/* Stats en vivo */}
             <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+              {visibleLineKeys
+                .filter((key) => key !== 'todas')
+                .map((key) => {
+                  const meta = LINE_META[key]
+                  return (
+                    <div key={key} className="flex items-center gap-8">
+                      <div>
+                        <p className="text-2xl font-extrabold text-white leading-none">
+                          {lineCounts[meta.countKey]}
+                        </p>
+                        <p className="text-[11px] uppercase tracking-wider text-white/60 mt-1">
+                          {meta.label.replace('Línea ', '')}
+                        </p>
+                      </div>
+                      <div className="w-px h-10 bg-white/15 hidden sm:block" />
+                    </div>
+                  )
+                })}
               <div>
                 <p className="text-2xl font-extrabold text-white leading-none">
                   {allProducts.length}
                 </p>
                 <p className="text-[11px] uppercase tracking-wider text-white/60 mt-1">
                   Productos
-                </p>
-              </div>
-              <div className="w-px h-10 bg-white/15 hidden sm:block" />
-              <div>
-                <p className="text-2xl font-extrabold text-white leading-none">
-                  {lineCounts.automotriz}
-                </p>
-                <p className="text-[11px] uppercase tracking-wider text-white/60 mt-1">
-                  Línea Automotriz
-                </p>
-              </div>
-              <div className="w-px h-10 bg-white/15 hidden sm:block" />
-              <div>
-                <p className="text-2xl font-extrabold text-white leading-none">
-                  {lineCounts.construccion}
-                </p>
-                <p className="text-[11px] uppercase tracking-wider text-white/60 mt-1">
-                  Línea Construcción
                 </p>
               </div>
             </div>
@@ -224,7 +238,7 @@ export default function CatalogPage() {
                   Línea comercial
                 </p>
                 <div className="space-y-1.5">
-                  {(Object.keys(LINE_META) as Array<keyof typeof LINE_META>).map((key) => {
+                  {visibleLineKeys.map((key) => {
                     const meta = LINE_META[key]
                     const Icon = meta.icon
                     const isActive = selectedLine === key

@@ -168,6 +168,7 @@ export function MobileMenu() {
           </div>
 
           {/* Categorías Construcción */}
+          {constCategories.length > 0 && (
           <div>
             <div className="flex items-center gap-2 px-3 mb-2 text-xs font-bold uppercase tracking-wider text-amber-700">
               <Wrench className="w-3.5 h-3.5" />
@@ -187,6 +188,7 @@ export function MobileMenu() {
               ))}
             </div>
           </div>
+          )}
 
           {/* Información de contacto */}
           <div className="pt-4 border-t border-slate-200 text-xs space-y-2 text-slate-500">

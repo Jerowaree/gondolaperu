@@ -22,7 +22,7 @@ export const serviceIcons: Record<string, LucideIcon> = {
 
 export function ServicesSection() {
   return (
-    <section id="servicios" className="py-20 sm:py-28 bg-gradient-to-b from-[#f8fafc] to-white border-b border-slate-200">
+    <section id="servicios" className="py-20 sm:py-28 bg-gradient-to-b from-[#f8fafc] to-white border-b border-slate-200 scroll-mt-24">
       <Container>
         <SectionTitle
           align="center"
@@ -55,7 +55,6 @@ export function ServicesSection() {
                   <h3 className="font-bold text-base sm:text-lg text-[#172B3A] mb-3 leading-snug">
                     {service.title}
                   </h3>
-                  <br />
 
                   <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mt-3">
                     {service.description}

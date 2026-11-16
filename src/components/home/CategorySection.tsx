@@ -10,19 +10,24 @@ import type { CommercialLine } from '@/types/category'
 
 export type CategoryFilter = 'todas' | CommercialLine
 
-const FILTERS: { value: CategoryFilter; label: string }[] = [
-  { value: 'todas', label: 'Todas' },
-  { value: 'automotriz', label: 'Automotriz' },
-  { value: 'construccion', label: 'Construcción' },
-]
-
 interface CategorySectionProps {
   selected: CategoryFilter
   onSelect: (filter: CategoryFilter) => void
 }
 
+const FILTER_LABELS: Record<CommercialLine, string> = {
+  automotriz: 'Automotriz',
+  construccion: 'Construcción',
+}
+
 export function CategorySection({ selected, onSelect }: CategorySectionProps) {
   const all = getCategories()
+
+  // Solo líneas que tienen categorías activas
+  const filters = useMemo<CategoryFilter[]>(() => {
+    const lines = [...new Set(all.map((c) => c.line))]
+    return ['todas', ...lines] as CategoryFilter[]
+  }, [all])
 
   const filtered = useMemo(() =>
     selected === 'todas' ? all : all.filter((c) => c.line === selected),
@@ -36,23 +41,23 @@ export function CategorySection({ selected, onSelect }: CategorySectionProps) {
           pretitle="Catálogo por Rubros"
           title="Categorías"
           titleAccent="Comerciales"
-          subtitle="Piezas mecánicas, repuestos y suministros de construcción para talleres, contratistas y empresas en Piura."
+          subtitle="Productos de detailing, cuidado vehicular y accesorios profesionales para talleres, lavaderos y particulares en Piura."
         />
 
         {/* Tabs + CTA en la misma línea */}
         <div className="flex items-center justify-between border-b border-slate-200 mb-8">
           <div className="flex items-center gap-0 overflow-x-auto scrollbar-none -mx-1 px-1">
-            {FILTERS.map((f) => {
-              const count = f.value === 'todas'
+            {filters.map((f) => {
+              const count = f === 'todas'
                 ? all.length
-                : all.filter((c) => c.line === f.value).length
-              const active = selected === f.value
+                : all.filter((c) => c.line === f).length
+              const active = selected === f
 
               return (
                 <button
-                  key={f.value}
+                  key={f}
                   type="button"
-                  onClick={() => onSelect(f.value)}
+                  onClick={() => onSelect(f)}
                   className={cn(
                     'relative px-3 sm:px-5 py-3 text-sm font-semibold transition-colors duration-150 select-none whitespace-nowrap shrink-0',
                     active
@@ -60,7 +65,7 @@ export function CategorySection({ selected, onSelect }: CategorySectionProps) {
                       : 'text-slate-400 hover:text-slate-700'
                   )}
                 >
-                  {f.label}
+                  {f === 'todas' ? 'Todas' : FILTER_LABELS[f]}
                   <span className={cn(
                     'ml-1.5 text-xs font-medium',
                     active ? 'text-[#003865]/60' : 'text-slate-300'

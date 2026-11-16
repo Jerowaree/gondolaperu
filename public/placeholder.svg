@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#003865"/>
+  <circle cx="400" cy="240" r="72" fill="#002647"/>
+  <path d="M380 240 L400 218 L420 240" stroke="#FCB800" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="392" y="240" width="16" height="34" rx="3" fill="#FCB800"/>
+  <text x="400" y="400" dominant-baseline="middle" text-anchor="middle" fill="#FCB800" font-family="Arial, sans-serif" font-size="34" font-weight="bold" letter-spacing="6">GÓNDOLA PERÚ</text>
+  <text x="400" y="448" dominant-baseline="middle" text-anchor="middle" fill="#7dd3fc" font-family="Arial, sans-serif" font-size="18" letter-spacing="3">DETALLING AUTOMOTRIZ</text>
+</svg>
