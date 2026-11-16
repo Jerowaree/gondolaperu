@@ -227,14 +227,6 @@ export function HeroSection({ onExploreLine }: HeroSectionProps) {
                     >
                       {slide.secondaryLabel}
                     </Button>
-
-                    <Button
-                      to="/nosotros"
-                      size="lg"
-                      className="border border-white/30 bg-transparent text-white hover:border-white/60 hover:bg-white/10"
-                    >
-                      Nosotros
-                    </Button>
                   </div>
 
                 </motion.div>
