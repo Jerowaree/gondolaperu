@@ -176,11 +176,11 @@ export function Header() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-xl sm:text-2xl font-bold text-[#003865] leading-none tracking-[-0.03em] group-hover:text-[#0082D6] transition-colors">
+              <div className="flex flex-col min-w-0">
+                <span className="text-lg sm:text-2xl font-bold text-[#003865] leading-none tracking-[-0.03em] group-hover:text-[#0082D6] transition-colors truncate">
                   GÓNDOLA<span className="text-[#0082D6] ml-1">PERÚ</span>
                 </span>
-                <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-0.5 truncate max-w-[190px]">
+                <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-0.5 truncate max-w-[110px] sm:max-w-[190px]">
                   VARIEDAD Y EXPERIENCIA S.A.C.
                 </span>
               </div>
@@ -212,11 +212,11 @@ export function Header() {
             </form>
 
             {/* Acciones derecha */}
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
               {/* Favoritos */}
               <Link
                 to="/favoritos"
-                className="relative p-2 text-slate-500 hover:text-red-500 hover:bg-slate-100 transition-colors"
+                className="relative p-1.5 sm:p-2 text-slate-500 hover:text-red-500 hover:bg-slate-100 transition-colors"
                 aria-label="Mis favoritos"
                 title="Mis favoritos"
               >
@@ -232,7 +232,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setCartOpen(true)}
-                className="relative p-2 text-slate-500 hover:text-[#003865] hover:bg-slate-100 transition-colors"
+                className="relative p-1.5 sm:p-2 text-slate-500 hover:text-[#003865] hover:bg-slate-100 transition-colors"
                 aria-label="Lista de cotización"
                 title="Lista de cotización"
               >
@@ -304,7 +304,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={toggleMobileMenu}
-                className="lg:hidden p-2 text-slate-600 hover:text-[#003865] hover:bg-slate-100 transition-colors"
+                className="lg:hidden p-1.5 sm:p-2 text-slate-600 hover:text-[#003865] hover:bg-slate-100 transition-colors"
                 aria-label="Abrir menú"
               >
                 <Menu className="w-6 h-6" />

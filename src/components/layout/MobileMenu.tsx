@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { X, Phone, MapPin, ChevronRight, Home, Info, ShoppingBag, Wrench, Shield, Search } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
@@ -15,6 +15,16 @@ export function MobileMenu() {
   const constCategories = getCategoriesByLine('construccion')
 
   const [mobileQuery, setMobileQuery] = useState('')
+
+  // Bloquea el scroll del body mientras el menú está abierto
+  useEffect(() => {
+    if (!isMobileMenuOpen) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [isMobileMenuOpen])
 
   if (!isMobileMenuOpen) return null
 

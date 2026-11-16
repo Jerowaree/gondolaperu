@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ChevronRight, Home } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export interface BreadcrumbItem {
   label: string
@@ -27,8 +28,17 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
         </li>
         {items.map((item, index) => {
           const isLast = index === items.length - 1
+          // En móvil solo se muestran el primer nivel y la página actual;
+          // los niveles intermedios aparecen desde sm en adelante.
+          const isMiddle = index < items.length - 1 && index > 0
           return (
-            <li key={index} className="inline-flex items-center gap-1.5 sm:gap-2">
+            <li
+              key={index}
+              className={cn(
+                'inline-flex items-center gap-1.5 sm:gap-2',
+                isMiddle && 'hidden sm:inline-flex'
+              )}
+            >
               <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               {item.href && !isLast ? (
                 <Link

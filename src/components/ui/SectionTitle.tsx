@@ -37,8 +37,14 @@ export function SectionTitle({
         )}
       </div>
 
-      {/* Título + acción en la misma fila */}
-      <div className={`flex items-start justify-between gap-6 ${isCenter ? 'flex-col items-center' : ''}`}>
+      {/* Título + acción en la misma fila (apilado en móvil) */}
+      <div
+        className={`flex flex-col gap-4 sm:gap-6 ${
+          isCenter
+            ? 'items-center'
+            : 'sm:flex-row sm:items-start sm:justify-between'
+        }`}
+      >
         <div>
           <h2
             className="text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-[#172B3A] leading-[1.08]"

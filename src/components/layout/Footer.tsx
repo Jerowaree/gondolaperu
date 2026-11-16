@@ -41,11 +41,12 @@ export function Footer() {
           </div>
 
           {/* Columna 2: Línea Automotriz (3 cols) */}
-          <div className="lg:col-span-3 space-y-7 text-center">
+          <div className="lg:col-span-3 space-y-8 text-center">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#FCB800]">
               Línea Automotriz
             </h4>
-            <ul className="space-y-4 text-sm text-slate-400">
+            <br />
+            <ul className="space-y-4 text-sm text-slate-400 py-2">
               {autoCategories.slice(0, 5).map((category) => (
                 <li key={category.id}>
                   <Link
@@ -73,7 +74,8 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#FCB800]">
               Construcción
             </h4>
-            <ul className="space-y-4 text-sm text-slate-400">
+            <br />
+            <ul className="mt-2 space-y-4 text-sm text-slate-400">
               {constCategories.slice(0, 4).map((category) => (
                 <li key={category.id}>
                   <Link

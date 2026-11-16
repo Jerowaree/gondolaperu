@@ -35,7 +35,7 @@ export function CategorySection() {
 
         {/* Tabs + CTA en la misma línea */}
         <div className="flex items-center justify-between border-b border-slate-200 mb-8">
-          <div className="flex items-center gap-0">
+          <div className="flex items-center gap-0 overflow-x-auto scrollbar-none -mx-1 px-1">
             {FILTERS.map((f) => {
               const count = f.value === 'todas'
                 ? all.length
@@ -48,7 +48,7 @@ export function CategorySection() {
                   type="button"
                   onClick={() => setSelected(f.value)}
                   className={cn(
-                    'relative px-5 py-3 text-sm font-semibold transition-colors duration-150 select-none',
+                    'relative px-3 sm:px-5 py-3 text-sm font-semibold transition-colors duration-150 select-none whitespace-nowrap shrink-0',
                     active
                       ? 'text-[#003865]'
                       : 'text-slate-400 hover:text-slate-700'

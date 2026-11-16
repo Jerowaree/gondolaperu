@@ -64,7 +64,7 @@ export default function ProductPage() {
       {/* Migajas de pan */}
       <div className="bg-white border-b border-slate-200 py-3.5">
         <Container>
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
             <Breadcrumb
               items={[
                 { label: 'Catálogo', href: '/catalogo' },
@@ -80,7 +80,7 @@ export default function ProductPage() {
             />
             <Link
               to="/catalogo"
-              className="text-xs font-semibold text-slate-500 hover:text-[#003865] inline-flex items-center gap-1 transition-colors shrink-0"
+              className="text-xs font-semibold text-slate-500 hover:text-[#003865] inline-flex items-center gap-1 transition-colors shrink-0 self-start sm:self-auto"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Volver al catálogo</span>
@@ -238,7 +238,7 @@ export default function ProductPage() {
       {relatedProducts.length > 0 && (
         <section className="py-16 bg-[#f8fafc] border-t border-slate-200">
           <Container>
-            <div className="flex items-end justify-between mb-8 gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4 mb-8">
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0082D6]">
                   Recomendados en {isAutomotriz ? 'Línea Automotriz' : 'Línea Construcción'}
