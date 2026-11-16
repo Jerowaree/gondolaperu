@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import './design-tokens.css';
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #003865;
+  --color-primary-dark: #002647;
+  --color-primary-light: #0059a0;
+  --color-primary-subtle: #e6eff7;
+
+  --color-secondary: #0082D6;
+  --color-secondary-dark: #006CB7;
+  --color-secondary-light: #009FE3;
+  --color-secondary-subtle: #e6f2fb;
+
+  --color-accent: #FCB800;
+  --color-accent-dark: #d4a000;
+  --color-accent-light: #FFCE00;
+  --color-accent-subtle: #fff8e1;
+
+  --color-surface: #F5F7F9;
+  --color-surface-alt: #EEF1F4;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  --color-text: #172B3A;
+  --color-text-muted: #475569;
+  --color-text-subtle: #64748b;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reset solo margin/padding de elementos de bloque — no tocar elementos inline ni botones */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, figure, dl, dd, pre,
+ul, ol, li, fieldset, legend, details, summary {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Compensación de scroll para secciones con anchor cuando el header es sticky */
+[id] {
+  scroll-margin-top: var(--header-total-height, 152px);
+}
+
+/* Evita que line-height del body afecte elementos de una sola línea en flex */
+p:empty {
+  display: none;
+}
+
+.container-site {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-site {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-site {
+    padding-inline: 2rem;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 207 37% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 207 37% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 207 37% 16%;
+    --primary: 211 100% 20%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 203 100% 42%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 43 100% 50%;
+    --accent-foreground: 207 37% 16%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 211 100% 20%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 207 37% 16%;
+    --foreground: 0 0% 100%;
+    --card: 207 37% 16%;
+    --card-foreground: 0 0% 100%;
+    --popover: 207 37% 16%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 43 100% 50%;
+    --primary-foreground: 207 37% 16%;
+    --secondary: 203 100% 42%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 207 30% 25%;
+    --muted-foreground: 215 16% 65%;
+    --accent: 43 100% 50%;
+    --accent-foreground: 207 37% 16%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 207 30% 25%;
+    --input: 207 30% 25%;
+    --ring: 43 100% 50%;
+  }
+}
