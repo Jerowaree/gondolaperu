@@ -8,6 +8,7 @@ import { AnimatePresence } from 'framer-motion'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { BrandLoader } from '@/components/ui/BrandLoader'
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 
 let brandLoaderShown = false
 
@@ -67,16 +68,19 @@ export function AppRouter() {
         {!splashDone && <BrandLoader key="brand-splash" />}
       </AnimatePresence>
       <Suspense fallback={<RouteFallback />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/nosotros" element={<AboutPage />} />
-          <Route path="/catalogo" element={<CatalogPage />} />
-          <Route path="/categorias/:slug" element={<CategoryPage />} />
-          <Route path="/productos/:slug" element={<ProductPage />} />
-          <Route path="/cotizar" element={<QuotePage />} />
-          <Route path="/favoritos" element={<FavoritesPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/nosotros" element={<AboutPage />} />
+            <Route path="/catalogo" element={<CatalogPage />} />
+            <Route path="/categorias/:slug" element={<CategoryPage />} />
+            <Route path="/productos/:slug" element={<ProductPage />} />
+            <Route path="/cotizar" element={<QuotePage />} />
+            <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/404" element={<NotFoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </ErrorBoundary>
       </Suspense>
     </>
   )
