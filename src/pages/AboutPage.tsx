@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import { motion } from 'framer-motion'
 import { MapPin, Phone, ShieldCheck, CheckCircle2, Building2, Shield } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MainLayout } from '@/components/layout/MainLayout'
@@ -174,11 +175,15 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
-            {company.services.map((s) => {
+            {company.services.map((s, idx) => {
               const ServiceIcon = serviceIcons[s.icon] ?? serviceIcons.Wrench
               return (
-                <div
+                <motion.div
                   key={s.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.45, delay: idx * 0.08, ease: 'easeOut' }}
                   className="bg-white rounded-2xl border border-slate-200/80 px-6 py-12 sm:px-8 sm:py-14 flex flex-col items-center text-center shadow-[0_1px_2px_rgba(16,24,40,0.05)]"
                 >
                   <div className="flex-1 flex flex-col items-center justify-center">
@@ -192,7 +197,7 @@ export default function AboutPage() {
                       {s.description}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               )
             })}
           </div>

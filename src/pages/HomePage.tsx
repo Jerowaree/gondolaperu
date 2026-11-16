@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { animate } from 'framer-motion'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { HeroSection } from '@/components/home/HeroSection'
 import { CommercialLinesBanner } from '@/components/home/CommercialLinesBanner'
@@ -8,8 +10,28 @@ import { ServicesSection } from '@/components/home/ServicesSection'
 import { BenefitsSection } from '@/components/home/BenefitsSection'
 import { ContactCTA } from '@/components/home/ContactCTA'
 import { siteConfig } from '@/config/site'
+import type { CommercialLine } from '@/types/category'
+import type { CategoryFilter } from '@/components/home/CategorySection'
 
 export default function HomePage() {
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('todas')
+
+  const handleExploreLine = (line: CommercialLine) => {
+    setCategoryFilter(line)
+    const el = document.getElementById('categorias')
+    if (!el) return
+    const targetY = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 88)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, targetY)
+      return
+    }
+    animate(window.scrollY, targetY, {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => window.scrollTo(0, v),
+    })
+  }
+
   return (
     <MainLayout>
       <Helmet>
@@ -23,7 +45,7 @@ export default function HomePage() {
       </Helmet>
 
       {/* 1. Hero Comercial */}
-      <HeroSection />
+      <HeroSection onExploreLine={handleExploreLine} />
 
       {/* 2. Franja Comercial Oscura — Pilares de Confianza */}
       <BenefitsSection />
@@ -32,7 +54,7 @@ export default function HomePage() {
       <CommercialLinesBanner />
 
       {/* 4. Categorías por Rubro (con pestañas Automotriz / Construcción) */}
-      <CategorySection />
+      <CategorySection selected={categoryFilter} onSelect={setCategoryFilter} />
 
       {/* 5. Productos Destacados (Stackzero Product Card Pattern) */}
       <FeaturedProducts />

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
@@ -8,14 +8,20 @@ import { getCategories } from '@/lib/categories'
 import { cn } from '@/lib/utils'
 import type { CommercialLine } from '@/types/category'
 
-const FILTERS: { value: 'todas' | CommercialLine; label: string; count?: number }[] = [
+export type CategoryFilter = 'todas' | CommercialLine
+
+const FILTERS: { value: CategoryFilter; label: string }[] = [
   { value: 'todas', label: 'Todas' },
   { value: 'automotriz', label: 'Automotriz' },
   { value: 'construccion', label: 'Construcción' },
 ]
 
-export function CategorySection() {
-  const [selected, setSelected] = useState<'todas' | CommercialLine>('todas')
+interface CategorySectionProps {
+  selected: CategoryFilter
+  onSelect: (filter: CategoryFilter) => void
+}
+
+export function CategorySection({ selected, onSelect }: CategorySectionProps) {
   const all = getCategories()
 
   const filtered = useMemo(() =>
@@ -24,7 +30,7 @@ export function CategorySection() {
   )
 
   return (
-    <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
+    <section id="categorias" className="py-16 sm:py-20 bg-white border-b border-slate-100 scroll-mt-24">
       <Container>
         <SectionTitle
           pretitle="Catálogo por Rubros"
@@ -46,7 +52,7 @@ export function CategorySection() {
                 <button
                   key={f.value}
                   type="button"
-                  onClick={() => setSelected(f.value)}
+                  onClick={() => onSelect(f.value)}
                   className={cn(
                     'relative px-3 sm:px-5 py-3 text-sm font-semibold transition-colors duration-150 select-none whitespace-nowrap shrink-0',
                     active

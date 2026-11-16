@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Heart, ShoppingCart, ArrowUpRight } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import type { Product } from '@/types/product'
@@ -25,7 +26,11 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
   const favorited = isFavorite(product.id)
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
       className={cn(
         'group flex flex-col bg-white border border-slate-200 transition-colors duration-150 hover:border-[#003865]',
         className
@@ -144,6 +149,6 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
           Cotizar
         </a>
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -35,6 +35,14 @@ export interface CompanyInfo {
   city: string
   region: string
   country: string
+  /** Dirección legal estructurada */
+  legalAddress: {
+    street: string
+    urbanization: string
+    reference?: string
+    district: string
+    department: string
+  }
   /** Canales de contacto */
   contact: ContactChannel[]
   /** Servicios de taller y mantenimiento vehicular complementarios */

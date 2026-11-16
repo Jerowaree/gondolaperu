@@ -5,6 +5,7 @@ import {
   Battery,
   type LucideIcon,
 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
@@ -31,13 +32,17 @@ export function ServicesSection() {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
-          {company.services.map((service) => {
+          {company.services.map((service, idx) => {
             const serviceWhatsappUrl = buildWhatsAppUrl(whatsappConfig.serviceMessage(service.title))
             const ServiceIcon = serviceIcons[service.icon] ?? Gauge
 
             return (
-              <div
+              <motion.div
                 key={service.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.45, delay: idx * 0.08, ease: 'easeOut' }}
                 className="group bg-white rounded-2xl border border-slate-200/80 px-6 py-12 sm:px-8 sm:py-14 flex flex-col items-center text-center shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_-8px_rgba(16,24,40,0.14)]"
               >
                 {/* Contenido centrado verticalmente */}
@@ -66,7 +71,7 @@ export function ServicesSection() {
                 >
                   Consultar
                 </Button>
-              </div>
+              </motion.div>
             )
           })}
         </div>

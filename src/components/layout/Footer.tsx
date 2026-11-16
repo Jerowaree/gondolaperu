@@ -103,13 +103,34 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#FCB800]">
               Atención Comercial
             </h4>
-
+              <br />
             <div className="space-y-6 text-sm text-slate-400">
-              <div className="flex items-start justify-center gap-3">
-                <MapPin className="w-4 h-4 text-[#FCB800] shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
-                  Distrito {company.district}, {company.city}, {company.region} — {company.country}
-                </span>
+              <div className="space-y-2">
+                <p className="inline-flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#FCB800]">
+                  <MapPin className="w-3.5 h-3.5" />
+                  Dirección Legal
+                </p>
+                <address className="not-italic leading-relaxed">
+                  <span className="block text-slate-300 font-medium">
+                    {company.legalAddress.street}
+                  </span>
+                  <span className="block text-slate-300 font-medium">
+                    {company.legalAddress.urbanization}
+                  </span>
+                  {company.legalAddress.reference && (
+                    <span className="block text-slate-500 text-xs">
+                      ({company.legalAddress.reference})
+                    </span>
+                  )}
+                  <span className="block pt-1.5 text-xs">
+                    <span className="text-slate-500">Distrito / Ciudad: </span>
+                    <span className="text-slate-300">{company.legalAddress.district}</span>
+                  </span>
+                  <span className="block text-xs">
+                    <span className="text-slate-500">Departamento: </span>
+                    <span className="text-slate-300">{company.legalAddress.department}</span>
+                  </span>
+                </address>
               </div>
 
               <div className="flex items-center justify-center gap-3">

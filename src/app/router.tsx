@@ -3,9 +3,25 @@
 // Definición centralizada de rutas con lazy loading y ScrollToTop.
 // =============================================================================
 
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { LoadingState } from '@/components/ui/LoadingState'
+import { BrandLoader } from '@/components/ui/BrandLoader'
+
+let brandLoaderShown = false
+
+function RouteFallback() {
+  const [showBrand] = useState(() => !brandLoaderShown)
+
+  useEffect(() => {
+    brandLoaderShown = true
+  }, [])
+
+  if (!showBrand) {
+    return <LoadingState message="Cargando contenido..." className="min-h-[60vh]" />
+  }
+  return <BrandLoader />
+}
 
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
@@ -30,7 +46,7 @@ export function AppRouter() {
   return (
     <>
       <ScrollToTop />
-      <Suspense fallback={<LoadingState message="Cargando contenido..." className="min-h-[60vh]" />}>
+      <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/nosotros" element={<AboutPage />} />

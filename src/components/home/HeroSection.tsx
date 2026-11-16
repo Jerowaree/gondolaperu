@@ -1,9 +1,57 @@
 import { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { ArrowRight, Package, HardHat } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppUrl } from '@/config/site'
 import { handleImageError } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
+import type { CommercialLine } from '@/types/category'
+
+interface HeroSectionProps {
+  onExploreLine: (line: CommercialLine) => void
+}
+
+function AnimatedAccent({ text, color, active }: { text: string; color: string; active: boolean }) {
+  const words = text.split(' ')
+  const wordOffsets = words.map((_, wi) =>
+    words.slice(0, wi).reduce((acc, w) => acc + w.length + 1, 0),
+  )
+
+  return (
+    <span className="block mt-1 relative" style={{ color }}>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {words.map((word, wi) => (
+          <span key={wi} className="inline-block whitespace-nowrap">
+            {word.split('').map((ch, ci) => {
+              const i = wordOffsets[wi] + ci
+              return (
+                <motion.span
+                  key={ci}
+                  className="inline-block"
+                  initial={{ opacity: 0, y: '0.4em', filter: 'blur(4px)' }}
+                  animate={
+                    active
+                      ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                      : { opacity: 0, y: '0.4em', filter: 'blur(4px)' }
+                  }
+                  transition={{
+                    duration: active ? 0.4 : 0.15,
+                    delay: active ? 0.3 + i * 0.03 : 0,
+                    ease: 'easeOut',
+                  }}
+                >
+                  {ch}
+                </motion.span>
+              )
+            })}
+            {wi < words.length - 1 ? ' ' : ''}
+          </span>
+        ))}
+      </span>
+    </span>
+  )
+}
 
 const slides = [
   {
@@ -18,7 +66,7 @@ const slides = [
     subtitle:
       'Autopartes, baterías, frenos, amortiguadores, lubricantes y componentes mecánicos. Atención personalizada y cotización inmediata en Piura.',
     primaryLabel: 'Ver Repuestos',
-    primaryTo: '/catalogo?linea=automotriz',
+    line: 'automotriz' as CommercialLine,
     secondaryLabel: 'Cotizar ahora',
     accentColor: '#0082D6',
     overlayFrom: 'from-[#001428]/90',
@@ -36,7 +84,7 @@ const slides = [
     subtitle:
       'Cemento, herramientas, PVC, pernería, aditivos y suministros para proyectos de construcción y refacción. Consulta directa y precios para Piura.',
     primaryLabel: 'Ver Materiales',
-    primaryTo: '/catalogo?linea=construccion',
+    line: 'construccion' as CommercialLine,
     secondaryLabel: 'Cotizar ahora',
     accentColor: '#FCB800',
     overlayFrom: 'from-[#0d1a0d]/92',
@@ -44,7 +92,7 @@ const slides = [
   },
 ]
 
-export function HeroSection() {
+export function HeroSection({ onExploreLine }: HeroSectionProps) {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
 
@@ -97,7 +145,16 @@ export function HeroSection() {
             {/* ── Content ─────────────────────────── */}
             <div className="relative z-10 h-full flex items-start pt-16 sm:pt-20" style={{ minHeight: 'inherit' }}>
               <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-                <div className="max-w-2xl xl:max-w-3xl flex flex-col gap-8 sm:gap-14 pb-24 sm:pb-28">
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={
+                    i === active
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: 28 }
+                  }
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="max-w-2xl xl:max-w-3xl flex flex-col gap-8 sm:gap-14 pb-24 sm:pb-28"
+                >
 
                   {/* Copy block */}
                   <div>
@@ -115,12 +172,11 @@ export function HeroSection() {
                       style={{ fontFamily: "'Space Grotesk', ui-sans-serif, system-ui, sans-serif" }}
                     >
                       {slide.title}
-                      <span
-                        className="block mt-1"
-                        style={{ color: slide.accentColor }}
-                      >
-                        {slide.titleAccent}
-                      </span>
+                      <AnimatedAccent
+                        text={slide.titleAccent}
+                        color={slide.accentColor}
+                        active={i === active}
+                      />
                     </h1>
 
                     {/* Subtitle — más separado del título */}
@@ -132,9 +188,9 @@ export function HeroSection() {
                   {/* CTA row — separado del copy */}
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button
-                      to={slide.primaryTo}
                       variant="accent"
                       size="lg"
+                      onClick={() => onExploreLine(slide.line)}
                       icon={<LineIcon className="w-4 h-4" />}
                       iconRight={<ArrowRight className="w-4 h-4" />}
                     >
@@ -160,7 +216,7 @@ export function HeroSection() {
                     </Button>
                   </div>
 
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -186,8 +242,8 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* ── Slide dots ─────────────────────────────────────────── */}
-      <div className="absolute bottom-6 right-6 z-20 flex gap-2">
+      {/* ── Slide dots (esquina superior derecha, fuera de los CTAs) ── */}
+      <div className="absolute top-5 right-5 sm:top-6 sm:right-8 z-20 flex gap-2">
         {slides.map((_, i) => (
           <button
             key={i}

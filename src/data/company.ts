@@ -20,6 +20,13 @@ export const company: CompanyInfo = {
   city: 'Piura',
   region: 'Piura',
   country: 'Perú',
+  legalAddress: {
+    street: 'Av. Gullman Nro. 848',
+    urbanization: 'Urbanización San José',
+    reference: 'Frente al Cuartel Máximo Galindo',
+    district: 'Veintiséis de Octubre',
+    department: 'Piura',
+  },
   contact: [
     {
       type: 'email',
