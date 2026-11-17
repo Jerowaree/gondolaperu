@@ -26,7 +26,7 @@ export function Footer() {
                 />
               </div>
               <div>
-                <span className="text-2xl font-bold text-white block leading-none tracking-[-0.03em]">
+                <span className="text-xl font-bold text-white block leading-none tracking-[-0.03em]">
                   GÓNDOLA<span className="text-[#FCB800] ml-1">PERÚ</span>
                 </span>
                 <span className="text-[10px] font-medium text-white/50 uppercase tracking-wider block mt-1.5">
