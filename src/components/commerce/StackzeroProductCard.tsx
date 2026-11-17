@@ -69,8 +69,6 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
           aria-label={favorited ? 'Quitar de favoritos' : 'Guardar en favoritos'}
           className={cn(
             'absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center transition-all duration-150',
-            'opacity-0 group-hover:opacity-100',
-            favorited && 'opacity-100',
             favorited
               ? 'bg-red-500 text-white'
               : 'bg-white/90 text-slate-400 hover:text-red-500 hover:bg-white'

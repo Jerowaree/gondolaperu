@@ -18,7 +18,7 @@ export function Footer() {
           {/* Columna 1: Identidad Corporativa (4 cols) */}
           <div className="lg:col-span-4 space-y-8 text-center lg:text-left">
             <Link to="/" className="inline-flex items-center gap-3 justify-center lg:justify-start">
-              <div className="w-12 h-12 bg-white p-1 overflow-hidden">
+              <div className="w-12 h-12 overflow-hidden">
                 <img
                   src="/logos/gondolalogo.png"
                   alt="GÓNDOLA PERÚ"

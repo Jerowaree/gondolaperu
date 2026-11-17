@@ -124,15 +124,6 @@ export function MobileMenu() {
             </Link>
 
             <Link
-              to="/#servicios"
-              onClick={closeMobileMenu}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm text-slate-700 hover:bg-slate-100 transition-colors"
-            >
-              <Wrench className="w-4 h-4 text-[#0082D6]" />
-              <span>Servicios Automotrices</span>
-            </Link>
-
-            <Link
               to="/nosotros"
               onClick={closeMobileMenu}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-colors ${

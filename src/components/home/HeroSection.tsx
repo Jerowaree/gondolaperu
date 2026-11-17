@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, animate } from 'framer-motion'
-import { ArrowRight, Package, Wrench } from 'lucide-react'
+import { ArrowRight, Package, Headphones } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppUrl } from '@/config/site'
 import { handleImageError } from '@/lib/utils'
@@ -57,7 +57,7 @@ const slides = [
   {
     id: 'detailing',
     image:
-      'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1600&h=720&fit=crop&q=85',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&h=720&fit=crop&q=85',
     lineBadge: 'Línea Detailing',
     lineBadgeColor: 'bg-[#0082D6] text-white',
     LineIcon: Package,
@@ -74,23 +74,23 @@ const slides = [
     overlayVia: 'via-[#002647]/65',
   },
   {
-    id: 'servicios',
+    id: 'asesoria',
     image:
-      'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1600&h=720&fit=crop&q=85',
-    lineBadge: 'Línea Complementaria',
+      'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&h=720&fit=crop&q=85',
+    lineBadge: 'Atención Directa',
     lineBadgeColor: 'bg-[#FCB800] text-slate-900',
-    LineIcon: Wrench,
-    title: 'Servicios de Taller',
-    titleAccent: 'y Mantenimiento',
+    LineIcon: Headphones,
+    title: 'Asesoría y',
+    titleAccent: 'Cotización Directa',
     subtitle:
-      'Mantenimiento preventivo, sistema de frenos, suspensión y dirección, y diagnóstico eléctrico. Técnicos especializados en Piura.',
-    primaryLabel: 'Ver Servicios',
+      'Te ayudamos a elegir el producto exacto según tu vehículo y necesidad. Atención personalizada por WhatsApp y teléfono, con cobertura en toda Piura.',
+    primaryLabel: 'Contáctanos',
     line: 'automotriz' as CommercialLine,
-    action: 'services' as const,
-    secondaryLabel: 'Agendar servicio',
+    action: 'contact' as const,
+    secondaryLabel: 'Escríbenos ahora',
     accentColor: '#FCB800',
-    overlayFrom: 'from-[#0d1a0d]/92',
-    overlayVia: 'via-[#172B3A]/65',
+    overlayFrom: 'from-[#001428]/92',
+    overlayVia: 'via-[#002647]/65',
   },
 ]
 
@@ -208,8 +208,8 @@ export function HeroSection({ onExploreLine }: HeroSectionProps) {
                       variant="accent"
                       size="lg"
                       onClick={() =>
-                        slide.action === 'services'
-                          ? scrollToSection('servicios')
+                        slide.action === 'contact'
+                          ? scrollToSection('contacto')
                           : onExploreLine(slide.line)
                       }
                       icon={<LineIcon className="w-4 h-4" />}

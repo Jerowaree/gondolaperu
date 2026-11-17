@@ -1,4 +1,4 @@
-import { Sparkles, Wrench } from 'lucide-react'
+import { Sparkles, Headphones } from 'lucide-react'
 import { StackzeroBanner } from '@/components/commerce/StackzeroBanner'
 
 export function CommercialLinesBanner() {
@@ -15,19 +15,19 @@ export function CommercialLinesBanner() {
           description="Shampoos pH neutro, ceras hidrofóbicas, acondicionadores, desengrasantes y accesorios profesionales Auto Premium para vehículos de todos los tamaños."
           linkText="Explorar Productos de Detailing"
           linkTo="/catalogo?linea=automotriz"
-          imageUrl="/products/champu-con-cera-ph-neutro-shampoo-ultra-wax-20-litros.jpg"
+          imageUrl="https://images.unsplash.com/photo-1633014041037-f5446fb4ce99?w=900&h=600&fit=crop&q=85"
         />
 
-        {/* Banner Línea Complementaria: Servicios de Taller */}
+        {/* Banner Atención Directa: Asesoría y Cotización */}
         <StackzeroBanner
-          badge="Línea Complementaria"
+          badge="Atención Directa"
           variant="automotriz"
-          icon={<Wrench className="w-3.5 h-3.5 inline text-[#bae6fd]" />}
-          title="Servicios de Taller y"
-          highlightText="Mantenimiento"
-          description="Mantenimiento preventivo, sistema de frenos, suspensión y dirección, y diagnóstico del sistema eléctrico con técnicos especializados en Piura."
-          linkText="Ver Servicios de Taller"
-          linkTo="/#servicios"
+          icon={<Headphones className="w-3.5 h-3.5 inline text-[#bae6fd]" />}
+          title="Asesoría y"
+          highlightText="Cotización Directa"
+          description="Te ayudamos a elegir el producto exacto según tu vehículo y necesidad. Atención personalizada por WhatsApp y teléfono, con cobertura en toda Piura."
+          linkText="Contáctanos"
+          linkTo="/#contacto"
           imageUrl="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=900&h=600&fit=crop&q=85"
           contentAlign="right"
         />

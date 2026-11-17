@@ -177,7 +177,7 @@ export function Header() {
               className="flex items-center gap-3 shrink-0 group focus-visible:outline-2 focus-visible:outline-[#003865]"
               title="GÓNDOLA PERÚ — Inicio"
             >
-              <div className="relative w-11 h-11 sm:w-12 sm:h-12 overflow-hidden border border-slate-200 p-0.5 bg-white group-hover:border-[#003865] transition-colors">
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12 overflow-hidden">
                 <img
                   src="/logos/gondolalogo.png"
                   alt="GÓNDOLA PERÚ"
@@ -341,7 +341,6 @@ export function Header() {
               { to: '/', label: 'Inicio', exact: true },
               { to: '/nosotros', label: 'Nosotros', exact: false },
               { to: '/catalogo', label: 'Catálogo', exact: false },
-              { to: '/#servicios', label: 'Servicios', exact: false },
             ].map(({ to, label, exact }) => {
               const active = exact
                 ? location.pathname === to

@@ -9,7 +9,7 @@ export function ContactCTA() {
   const whatsappUrl = buildWhatsAppUrl('Hola GÓNDOLA PERÚ, quiero solicitar asesoría y cotización sobre sus productos y servicios.')
 
   return (
-    <section className="py-20 sm:py-28 bg-[#003865] text-white relative overflow-hidden">
+    <section id="contacto" className="py-20 sm:py-28 bg-[#003865] text-white relative overflow-hidden scroll-mt-24">
       {/* Elemento decorativo sutil */}
       <div className="absolute inset-0 opacity-5 pointer-events-none select-none" aria-hidden="true">
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white" />
