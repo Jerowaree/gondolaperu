@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async'
-import { motion } from 'framer-motion'
 import { MapPin, Phone, ShieldCheck, CheckCircle2, Building2, Shield } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MainLayout } from '@/components/layout/MainLayout'
@@ -7,7 +6,6 @@ import { Container } from '@/components/ui/Container'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Button } from '@/components/ui/Button'
 import { company, benefits } from '@/data/company'
-import { serviceIcons } from '@/components/home/ServicesSection'
 import { siteConfig, buildWhatsAppUrl, whatsappConfig } from '@/config/site'
 
 export default function AboutPage() {
@@ -19,14 +17,14 @@ export default function AboutPage() {
         <title>Sobre Nosotros — {siteConfig.name}</title>
         <meta
           name="description"
-          content={`Conoce a ${company.legalName} (${company.tradeName}), empresa comercial especializada en repuestos automotrices, materiales de construcción y mantenimiento vehicular en Piura, Perú.`}
+          content={`Conoce a ${company.legalName} (${company.tradeName}), empresa comercial especializada en repuestos automotrices y materiales de construcción en Piura, Perú.`}
         />
       </Helmet>
 
       <PageHeader
         badge="Nuestra Empresa"
         title="Acerca de GÓNDOLA PERÚ"
-        subtitle="Empresa comercial formal perteneciente a GÓNDOLA VARIEDAD Y EXPERIENCIA S.A.C., dedicada a brindar soluciones integrales en repuestos automotrices, materiales de construcción y servicios de taller."
+        subtitle="Empresa comercial formal perteneciente a GÓNDOLA VARIEDAD Y EXPERIENCIA S.A.C., dedicada a brindar soluciones integrales en repuestos automotrices y materiales de construcción."
         breadcrumbs={[{ label: 'Nosotros' }]}
       />
 
@@ -64,10 +62,6 @@ export default function AboutPage() {
                 <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
                   <CheckCircle2 className="w-4 h-4 text-[#0082D6] shrink-0 mt-0.5" />
                   <span>Línea Construcción: materiales, herramientas y suministros</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                  <CheckCircle2 className="w-4 h-4 text-[#0082D6] shrink-0 mt-0.5" />
-                  <span>Servicios de mantenimiento y reparación mecánica</span>
                 </div>
               </div>
 
@@ -129,7 +123,7 @@ export default function AboutPage() {
                     <Shield className="w-5 h-5 text-[#FCB800] shrink-0" />
                     <div>
                       <span className="font-semibold block text-white">Líneas de Negocio:</span>
-                      <span className="text-slate-200">Automotriz, Construcción y Mantenimiento</span>
+                      <span className="text-slate-200">Automotriz y Construcción</span>
                     </div>
                   </div>
 
@@ -155,51 +149,6 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Servicios Automotrices Complementarios */}
-      <section className="py-16 bg-[#f8fafc] border-t border-slate-200">
-        <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#0082D6]">
-              Servicios Complementarios
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#003865] mt-1">
-              Taller y Mantenimiento Vehicular
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Personal capacitado y repuestos a la mano para brindar un servicio rápido y confiable a transportistas y particulares.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
-            {company.services.map((s, idx) => {
-              const ServiceIcon = serviceIcons[s.icon] ?? serviceIcons.Wrench
-              return (
-                <motion.div
-                  key={s.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.45, delay: idx * 0.08, ease: 'easeOut' }}
-                  className="bg-white rounded-2xl border border-slate-200/80 px-6 py-12 sm:px-8 sm:py-14 flex flex-col items-center text-center shadow-[0_1px_2px_rgba(16,24,40,0.05)]"
-                >
-                  <div className="flex-1 flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center mb-8">
-                      <ServiceIcon className="w-7 h-7" />
-                    </div>
-                    <h3 className="font-bold text-base sm:text-lg text-[#172B3A] mb-6 leading-snug">
-                      {s.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                      {s.description}
-                    </p>
-                  </div>
-                </motion.div>
-              )
-            })}
           </div>
         </Container>
       </section>

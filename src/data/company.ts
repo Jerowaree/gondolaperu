@@ -14,7 +14,6 @@ export const company: CompanyInfo = {
   description: [
     'GÓNDOLA VARIEDAD Y EXPERIENCIA S.A.C. (GÓNDOLA PERÚ) es una empresa comercial consolidada en el distrito Veintiséis de Octubre, Piura, enfocada en satisfacer las necesidades comerciales, técnicas y operativas de clientes y negocios en el norte del país.',
     'Nuestra actividad se concentra en dos líneas comerciales estratégicas: la Línea Automotriz, que abarca una amplia gama de repuestos, partes mecánicas, componentes y accesorios para diversos tipos de vehículos; y la Línea Construcción, orientada al suministro de materiales, herramientas y artículos indispensables para obras y proyectos.',
-    'Como valor complementario, brindamos servicios especializados de mantenimiento y reparación vehicular, respaldados por personal capacitado para asegurar el óptimo rendimiento de su unidad de transporte.',
   ],
   district: 'Veintiséis de Octubre',
   city: 'Piura',
@@ -108,12 +107,6 @@ export const benefits: BenefitItem[] = [
     icon: 'MapPin',
     title: 'Ubicación Estratégica en Piura',
     description: 'Establecidos en el distrito Veintiséis de Octubre, con fácil acceso para retiro o despacho en la región.',
-  },
-  {
-    id: 'servicios',
-    icon: 'Wrench',
-    title: 'Servicios de Taller Complementario',
-    description: 'Atención técnica para instalación de partes, mantenimiento preventivo y reparación automotriz.',
   },
   {
     id: 'rapidez',
