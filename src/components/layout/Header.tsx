@@ -185,7 +185,7 @@ export function Header() {
                 />
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="text-base sm:text-xl font-bold text-[#003865] leading-none tracking-[-0.03em] group-hover:text-[#0082D6] transition-colors truncate">
+                <span className="text-base sm:text-base font-bold text-[#003865] leading-none tracking-[-0.03em] group-hover:text-[#0082D6] transition-colors truncate">
                   GÓNDOLA<span className="text-[#0082D6] ml-1">PERÚ</span>
                 </span>
                 <span className="text-[10px] sm:text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-0.5 truncate max-w-[110px] sm:max-w-[190px]">
