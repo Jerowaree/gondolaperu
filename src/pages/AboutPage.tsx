@@ -4,7 +4,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Container } from '@/components/ui/Container'
 import { PageHeader } from '@/components/ui/PageHeader'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { company, benefits } from '@/data/company'
 import { siteConfig, buildWhatsAppUrl, whatsappConfig } from '@/config/site'
 

@@ -1,4 +1,5 @@
 import { Grid3X3, Headphones, Users, MessageCircle } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
 
 const blocks = [
   {
@@ -6,14 +7,14 @@ const blocks = [
     icon: Grid3X3,
     title: 'Amplio Catálogo',
     description:
-      'Catálogo de detailing organizado por rubros: aros, interiores, shampoos, ceras, microfibras y accesorios.',
+      'Repuestos automotrices, materiales de construcción y herramientas organizadas en dos líneas especializadas.',
   },
   {
     id: 'asesoria',
     icon: Headphones,
     title: 'Asesoría Técnica',
     description:
-      'Orientación especializada para elegir el producto exacto según la superficie y el tipo de vehículo.',
+      'Orientación especializada para elegir el repuesto exacto o los materiales precisos para su proyecto.',
   },
   {
     id: 'atencion',
@@ -33,24 +34,29 @@ const blocks = [
 
 export function BenefitsSection() {
   return (
-    <section className="bg-[#0d1f2d] w-full">
+    <section className="bg-[#001c36] w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {blocks.map((block, i) => {
+        {/* Top accent stripe */}
+        <div className="h-0.5 bg-gradient-to-r from-transparent via-[#FCB800] to-transparent opacity-40 mb-0" />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/8">
+          {blocks.map((block) => {
             const Icon = block.icon
-            const isLast = i === blocks.length - 1
             return (
               <div
                 key={block.id}
-                className={`p-6 sm:p-8 hover:bg-white/5 transition-colors ${
-                  !isLast ? 'border-b sm:border-b-0 sm:border-r border-white/10 lg:border-b-0 lg:border-r' : ''
-                }`}
+                className="group p-7 sm:p-8 hover:bg-white/4 transition-colors"
               >
-                <div className="mb-4 w-12 h-12 rounded-xl bg-[#FCB800]/20 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-[#FCB800]" />
+                <div className="mb-5 w-11 h-11 rounded-2xl bg-[#FCB800]/15 border border-[#FCB800]/20 flex items-center justify-center group-hover:bg-[#FCB800]/25 transition-colors">
+                  <Icon className="w-5 h-5 text-[#FCB800]" />
                 </div>
-                <h3 className="text-white font-bold text-lg mb-2">{block.title}</h3>
-                <p className="text-slate-300/90 text-sm leading-relaxed">{block.description}</p>
+                <Separator className="mb-4 opacity-10" />
+                <h3 className="text-white font-bold text-base mb-2 tracking-tight">
+                  {block.title}
+                </h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  {block.description}
+                </p>
               </div>
             )
           })}

@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import type { Category } from '@/types/category'
 import { getProductsByCategory } from '@/lib/products'
-import { handleImageError, cn } from '@/lib/utils'
+import { handleImageError } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 
 interface CategoryCardProps {
   category: Category
@@ -16,59 +17,47 @@ export function CategoryCard({ category, className = '' }: CategoryCardProps) {
   return (
     <Link
       to={`/categorias/${category.slug}`}
-      className={cn(
-        'group relative flex flex-col justify-end overflow-hidden min-h-[240px] sm:min-h-[280px] border border-slate-200 hover:border-[#003865] transition-colors duration-200',
-        className
-      )}
+      className={`group relative flex flex-col justify-end overflow-hidden rounded-2xl min-h-[240px] sm:min-h-[280px] border border-slate-200/80 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 ${className}`}
       title={`Explorar ${category.name}`}
     >
-      {/* Imagen de fondo */}
+      {/* Background image */}
       <img
         src={category.image}
         alt={category.name}
         loading="lazy"
         onError={handleImageError}
-        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+        className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f2d]/95 via-[#0d1f2d]/40 to-transparent" />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f2d]/95 via-[#0d1f2d]/45 to-transparent" />
 
-      {/* Badge de línea — sólido, sin blur */}
-      <div className="absolute top-0 left-0 z-10">
-        <span
-          className={cn(
-            'block px-3 py-1 text-[10px] font-bold uppercase tracking-widest',
-            isAutomotriz
-              ? 'bg-[#003865] text-white'
-              : 'bg-[#FCB800] text-[#172B3A]'
-          )}
+      {/* Top badges row */}
+      <div className="relative z-10 flex items-start justify-between p-4 pb-0">
+        <Badge
+          variant={isAutomotriz ? 'secondary' : 'accent'}
+          className="text-[10px] uppercase tracking-wider font-bold backdrop-blur-sm shadow-sm border-0"
         >
           {isAutomotriz ? 'Automotriz' : 'Construcción'}
+        </Badge>
+
+        {/* Arrow icon — appears on hover */}
+        <span className="w-8 h-8 rounded-full bg-white text-[#003865] flex items-center justify-center opacity-0 translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-200 shadow-md shrink-0">
+          <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
         </span>
       </div>
 
-      {/* Flecha hover */}
-      <div className="absolute top-3 right-3 z-10">
-        <span className="w-7 h-7 bg-white text-[#003865] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <ArrowUpRight className="w-4 h-4" />
-        </span>
-      </div>
-
-      {/* Texto */}
-      <div className="relative z-10 p-5 text-white">
-        <div className="flex items-end justify-between gap-2">
-          <h3
-            className="text-xl sm:text-2xl font-semibold text-white group-hover:text-[#FCB800] transition-colors leading-tight"
-            style={{ fontFamily: "'Space Grotesk', ui-sans-serif, system-ui, sans-serif", letterSpacing: '-0.02em' }}
-          >
+      {/* Bottom content */}
+      <div className="relative z-10 p-4 pt-6">
+        <div className="flex items-end justify-between gap-2 mb-1.5">
+          <h3 className="text-xl font-black tracking-tight text-white group-hover:text-[#FCB800] transition-colors leading-tight">
             {category.name}
           </h3>
-          <span className="text-[11px] text-white/60 shrink-0 mb-0.5">
-            {productCount} {productCount === 1 ? 'producto' : 'productos'}
+          <span className="text-xs text-white/60 shrink-0">
+            {productCount} {productCount === 1 ? 'artículo' : 'artículos'}
           </span>
         </div>
-        <p className="mt-1.5 text-xs text-slate-300 line-clamp-2 leading-relaxed">
+        <p className="text-xs text-slate-300/90 line-clamp-2 leading-relaxed">
           {category.description}
         </p>
       </div>

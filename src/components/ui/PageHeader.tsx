@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react'
 import { Container } from './Container'
 import { Breadcrumb, type BreadcrumbItem } from './Breadcrumb'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 
 interface PageHeaderProps {
   title: string

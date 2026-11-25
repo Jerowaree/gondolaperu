@@ -1,114 +1,102 @@
-import { useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { CategoryCard } from '@/components/ui/CategoryCard'
+import { Button } from '@/components/ui/button'
 import { getCategories } from '@/lib/categories'
-import { cn } from '@/lib/utils'
 import type { CommercialLine } from '@/types/category'
+import { cn } from '@/lib/utils'
 
-export type CategoryFilter = 'todas' | CommercialLine
+type FilterLine = 'todas' | CommercialLine
+
+const filters: { value: FilterLine; label: string }[] = [
+  { value: 'todas', label: 'Todas' },
+  { value: 'automotriz', label: 'Automotriz' },
+  { value: 'construccion', label: 'Construcción' },
+]
+
+export type CategoryFilter = FilterLine
 
 interface CategorySectionProps {
-  selected: CategoryFilter
-  onSelect: (filter: CategoryFilter) => void
+  selected?: CategoryFilter
+  onSelect?: (line: CategoryFilter) => void
 }
 
-const FILTER_LABELS: Record<CommercialLine, string> = {
-  automotriz: 'Automotriz',
-  construccion: 'Construcción',
-}
+export function CategorySection({ selected, onSelect }: CategorySectionProps = {}) {
+  const [internalLine, setInternalLine] = useState<FilterLine>('todas')
+  const selectedLine = selected ?? internalLine
+  const setSelectedLine = onSelect ?? setInternalLine
+  const allCategories = getCategories()
 
-export function CategorySection({ selected, onSelect }: CategorySectionProps) {
-  const all = getCategories()
+  const filteredCategories = useMemo(() => {
+    if (selectedLine === 'todas') return allCategories
+    return allCategories.filter((c) => c.line === selectedLine)
+  }, [selectedLine, allCategories])
 
-  // Solo líneas que tienen categorías activas
-  const filters = useMemo<CategoryFilter[]>(() => {
-    const lines = [...new Set(all.map((c) => c.line))]
-    return ['todas', ...lines] as CategoryFilter[]
-  }, [all])
-
-  const filtered = useMemo(() =>
-    selected === 'todas' ? all : all.filter((c) => c.line === selected),
-    [selected, all]
-  )
+  const counts: Record<FilterLine, number> = {
+    todas: allCategories.length,
+    automotriz: allCategories.filter((c) => c.line === 'automotriz').length,
+    construccion: allCategories.filter((c) => c.line === 'construccion').length,
+  }
 
   return (
-    <section id="categorias" className="py-16 sm:py-20 bg-white border-b border-slate-100 scroll-mt-24">
+    <section className="py-16 sm:py-20 bg-[#f8fafc] border-b border-slate-200">
       <Container>
         <SectionTitle
           pretitle="Catálogo por Rubros"
-          title="Categorías"
-          titleAccent="Comerciales"
-          subtitle="Productos de detailing, cuidado vehicular y accesorios profesionales para talleres, lavaderos y particulares en Piura."
+          title="Categorías Comerciales"
+          subtitle="Encuentra repuestos mecánicos y suministros de construcción organizados según las necesidades de tu negocio."
+          action={
+            <Button
+              to="/catalogo"
+              variant="outline"
+              size="sm"
+              iconRight={<ArrowRight className="w-4 h-4" />}
+            >
+              Ver todo
+            </Button>
+          }
         />
 
-        {/* Tabs + CTA en la misma línea */}
-        <div className="flex items-center justify-between border-b border-slate-200 mb-8">
-          <div className="flex items-center gap-0 overflow-x-auto scrollbar-none -mx-1 px-1">
-            {filters.map((f) => {
-              const count = f === 'todas'
-                ? all.length
-                : all.filter((c) => c.line === f).length
-              const active = selected === f
-
-              return (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => onSelect(f)}
-                  className={cn(
-                    'relative px-3 sm:px-5 py-3 text-sm font-semibold transition-colors duration-150 select-none whitespace-nowrap shrink-0',
-                    active
-                      ? 'text-[#003865]'
-                      : 'text-slate-400 hover:text-slate-700'
-                  )}
-                >
-                  {f === 'todas' ? 'Todas' : FILTER_LABELS[f]}
-                  <span className={cn(
-                    'ml-1.5 text-xs font-medium',
-                    active ? 'text-[#003865]/60' : 'text-slate-300'
-                  )}>
-                    {count}
-                  </span>
-                  {/* Borde inferior activo */}
-                  {active && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#003865]" />
-                  )}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* CTA integrado */}
-          <Link
-            to="/catalogo"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-[#003865] transition-colors mb-px"
-          >
-            Ver catálogo completo
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {/* Grilla */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200">
-          {filtered.map((category) => (
-            <div key={category.id} className="bg-white">
-              <CategoryCard category={category} className="border-0" />
-            </div>
+        {/* Filter tabs — using shadcn-style pill group */}
+        <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none">
+          {filters.map((f) => (
+            <button
+              key={f.value}
+              type="button"
+              onClick={() => setSelectedLine(f.value)}
+              className={cn(
+                'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all shrink-0 border',
+                selectedLine === f.value
+                  ? f.value === 'automotriz'
+                    ? 'bg-[#003865] text-white border-[#003865] shadow-sm'
+                    : f.value === 'construccion'
+                      ? 'bg-[#FCB800] text-slate-900 border-[#FCB800] shadow-sm'
+                      : 'bg-[#172B3A] text-white border-[#172B3A] shadow-sm'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:bg-slate-50',
+              )}
+            >
+              <span>{f.label}</span>
+              <span
+                className={cn(
+                  'text-[11px] font-bold px-1.5 py-0.5 rounded-full',
+                  selectedLine === f.value
+                    ? 'bg-white/20 text-current'
+                    : 'bg-slate-100 text-slate-500',
+                )}
+              >
+                {counts[f.value]}
+              </span>
+            </button>
           ))}
         </div>
 
-        {/* CTA móvil */}
-        <div className="mt-6 sm:hidden text-center">
-          <Link
-            to="/catalogo"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#003865]"
-          >
-            Ver catálogo completo
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filteredCategories.map((category) => (
+            <CategoryCard key={category.id} category={category} />
+          ))}
         </div>
       </Container>
     </section>

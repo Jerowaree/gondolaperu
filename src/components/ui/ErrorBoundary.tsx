@@ -1,7 +1,7 @@
 import { Component, type ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { CloudOff, RotateCcw } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { siteConfig } from '@/config/site'
 
 interface Props {

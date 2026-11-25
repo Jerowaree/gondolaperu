@@ -15,8 +15,8 @@ import {
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Container } from '@/components/ui/Container'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardHeader,

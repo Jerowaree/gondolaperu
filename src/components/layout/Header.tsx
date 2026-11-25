@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Menu, Search, LayoutGrid, ChevronDown, ShoppingCart, Heart } from 'lucide-react'
+import { Menu, Search, LayoutGrid, ChevronDown, ShoppingCart, Heart, User } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Container } from '@/components/ui/Container'
 import { Input } from '@/components/ui/input'
@@ -10,7 +10,6 @@ import { NavDropdown } from './NavDropdown'
 import { useSiteContext } from '@/contexts/SiteContext'
 import { useCart } from '@/contexts/CartContext'
 import { useAuth } from '@/contexts/AuthContext'
-import { LoginModal } from '@/components/auth/LoginModal'
 import { getCategories, getCategoriesByLine } from '@/lib/categories'
 import { buildWhatsAppUrl } from '@/config/site'
 import { cn } from '@/lib/utils'
@@ -110,7 +109,6 @@ export function Header() {
 
   const [searchQuery, setSearchQuery] = useState('')
   const [searchLine, setSearchLine] = useState('')
-  const [loginOpen, setLoginOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -252,15 +250,15 @@ export function Header() {
                 )}
               </button>
 
-              {/* Auth: login button or user dropdown */}
+              {/* Auth: login link or user dropdown */}
               {!isAuthenticated ? (
-                <button
-                  type="button"
-                  onClick={() => setLoginOpen(true)}
-                  className="hidden sm:inline-flex text-xs font-semibold border border-slate-300 px-3 py-1.5 hover:border-[#003865] hover:text-[#003865] transition-colors text-slate-600"
+                <Link
+                  to="/login"
+                  className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold border border-slate-300 rounded-xl px-3 py-1.5 hover:border-[#003865] hover:text-[#003865] hover:bg-slate-50 transition-all text-slate-700 shadow-2xs"
                 >
-                  Iniciar sesión
-                </button>
+                  <User className="w-3.5 h-3.5 text-[#0082D6]" />
+                  <span>Iniciar sesión</span>
+                </Link>
               ) : (
                 <div ref={dropdownRef} className="relative hidden sm:block">
                   <button
@@ -365,9 +363,6 @@ export function Header() {
 
       {/* Menú Móvil */}
       <MobileMenu />
-
-      {/* Login Modal */}
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
     </header>
   )
 }

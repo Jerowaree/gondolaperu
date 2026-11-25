@@ -15,7 +15,7 @@ interface AuthContextValue {
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
-  login: (email: string, _password: string) => Promise<void>
+  login: (email: string, _password: string, name?: string) => Promise<void>
   logout: () => void
 }
 
@@ -50,13 +50,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  async function login(email: string, _password: string): Promise<void> {
+  async function login(email: string, _password: string, name?: string): Promise<void> {
     setIsLoading(true)
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 800))
+    // Simular tiempo de respuesta del servidor
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    const userName = name && name.trim() ? name.trim() : extractNameFromEmail(email)
     const newUser: User = {
-      name: extractNameFromEmail(email),
-      email,
+      name: userName,
+      email: email.trim(),
     }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser))
     setUser(newUser)

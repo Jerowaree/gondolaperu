@@ -32,6 +32,7 @@ const CategoryPage = lazy(() => import('@/pages/CategoryPage'))
 const ProductPage = lazy(() => import('@/pages/ProductPage'))
 const QuotePage = lazy(() => import('@/pages/QuotePage'))
 const FavoritesPage = lazy(() => import('@/pages/FavoritesPage'))
+const LoginPage = lazy(() => import('@/pages/LoginPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
 function ScrollToTop() {
@@ -77,6 +78,7 @@ export function AppRouter() {
             <Route path="/productos/:slug" element={<ProductPage />} />
             <Route path="/cotizar" element={<QuotePage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/404" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { Home, ShoppingBag } from 'lucide-react'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Container } from '@/components/ui/Container'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { siteConfig } from '@/config/site'
 
 export default function NotFoundPage() {

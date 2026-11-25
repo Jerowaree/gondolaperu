@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { X, Phone, MapPin, ChevronRight, Home, Info, ShoppingBag, Wrench, Shield, Search } from 'lucide-react'
+import { X, Phone, MapPin, ChevronRight, Home, Info, ShoppingBag, Wrench, Shield, Search, User, LogOut } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { useSiteContext } from '@/contexts/SiteContext'
+import { useAuth } from '@/contexts/AuthContext'
 import { getCategoriesByLine } from '@/lib/categories'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, whatsappConfig } from '@/config/site'
 
 export function MobileMenu() {
   const { isMobileMenuOpen, closeMobileMenu } = useSiteContext()
+  const { user, isAuthenticated, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   const autoCategories = getCategoriesByLine('automotriz')
@@ -92,6 +94,43 @@ export function MobileMenu() {
               <Search className="w-4 h-4" />
             </button>
           </form>
+        </div>
+
+        {/* Auth en menú móvil */}
+        <div className="px-4 py-2 border-b border-slate-100">
+          {!isAuthenticated ? (
+            <Link
+              to="/login"
+              onClick={closeMobileMenu}
+              className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-slate-100 hover:bg-[#003865] hover:text-white text-xs font-bold text-[#003865] transition-colors"
+            >
+              <User className="w-4 h-4 text-[#0082D6]" />
+              <span>Iniciar sesión</span>
+            </Link>
+          ) : (
+            <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200">
+              <div className="flex items-center gap-2 truncate">
+                <span className="w-7 h-7 bg-[#003865] text-white text-xs font-bold rounded-full flex items-center justify-center shrink-0">
+                  {user!.name.charAt(0).toUpperCase()}
+                </span>
+                <div className="truncate">
+                  <div className="text-xs font-bold text-slate-900 truncate">{user!.name}</div>
+                  <div className="text-[10px] text-slate-500 truncate">{user!.email}</div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  logout()
+                  closeMobileMenu()
+                }}
+                className="text-slate-400 hover:text-rose-600 p-1.5 transition-colors"
+                title="Cerrar sesión"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Links principales */}

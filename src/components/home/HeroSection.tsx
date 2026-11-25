@@ -4,7 +4,7 @@ import { ArrowRight, Package, Headphones } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { buildWhatsAppUrl } from '@/config/site'
 import { handleImageError } from '@/lib/utils'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import type { CommercialLine } from '@/types/category'
 
 interface HeroSectionProps {

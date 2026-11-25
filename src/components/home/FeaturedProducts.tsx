@@ -2,7 +2,7 @@ import { ArrowRight, ShoppingBag } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ProductGrid } from '@/components/ui/ProductGrid'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { getFeaturedProducts } from '@/lib/products'
 
 export function FeaturedProducts() {

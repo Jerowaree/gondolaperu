@@ -1,10 +1,13 @@
-import { Phone, MapPin } from 'lucide-react'
+import { Phone, MapPin, User } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import { Container } from '@/components/ui/Container'
 import { company } from '@/data/company'
 import { buildWhatsAppUrl, whatsappConfig } from '@/config/site'
+import { useAuth } from '@/contexts/AuthContext'
 
 export function TopBar() {
+  const { user, isAuthenticated } = useAuth()
   const whatsappUrl = buildWhatsAppUrl('Hola GÓNDOLA PERÚ, deseo solicitar información y una cotización.')
 
   return (
@@ -17,8 +20,23 @@ export function TopBar() {
             <span>{company.district}, {company.city} — Perú</span>
           </div>
 
-          {/* Derecha: Teléfono + WhatsApp badge */}
+          {/* Derecha: Cuenta + Teléfono + WhatsApp badge */}
           <div className="flex items-center gap-4">
+            {isAuthenticated && user ? (
+              <span className="inline-flex items-center gap-1 text-white/80 text-[11px] font-medium">
+                <User className="w-3 h-3 text-[#FCB800]" />
+                <span>Hola, {user.name.split(' ')[0]}</span>
+              </span>
+            ) : (
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-1 text-white/70 hover:text-white transition-colors text-[11px]"
+              >
+                <User className="w-3 h-3 text-[#FCB800]" />
+                <span>Mi cuenta</span>
+              </Link>
+            )}
+
             <a
               href="tel:+51951545204"
               className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors"
