@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, Heart, ShoppingCart } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 import type { Product } from '@/types/product'
 import { getCategoryById } from '@/lib/categories'
 import { buildWhatsAppUrl, whatsappConfig } from '@/config/site'
-import { handleImageError } from '@/lib/utils'
+import { cn, handleImageError } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardFooter,
 } from '@/components/ui/card'
+import { useCart } from '@/contexts/CartContext'
 
 interface StackzeroProductCardProps {
   product: Product
@@ -26,10 +26,13 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
 
   const isAutomotriz = product.line === 'automotriz'
   const whatsappUrl = buildWhatsAppUrl(whatsappConfig.productMessage(product.name))
+  const { addToCart, isInCart, toggleFavorite, isFavorite } = useCart()
+  const inCart = isInCart(product.id)
+  const favorited = isFavorite(product.id)
 
   return (
     <Card
-      className={`group p-0 gap-0 overflow-hidden rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#003865]/25 transition-all duration-300 ${className}`}
+      className={`group h-full p-0 gap-0 overflow-hidden rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#003865]/25 transition-all duration-300 ${className}`}
     >
       {/* ── Image ──────────────────────────────────────────────── */}
       <div className="relative overflow-hidden bg-slate-100 aspect-[4/3]">
@@ -62,6 +65,22 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
             className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
           />
         </Link>
+
+        {/* Favorito: siempre accesible en pantallas táctiles */}
+        <button
+          type="button"
+          onClick={() => toggleFavorite(product.id)}
+          aria-label={favorited ? 'Quitar de favoritos' : 'Guardar en favoritos'}
+          className={cn(
+            'absolute right-3 bottom-3 z-10 flex w-9 h-9 items-center justify-center rounded-full shadow-sm transition-all duration-150',
+            'sm:bottom-auto sm:top-3 sm:opacity-0 sm:group-hover:opacity-100',
+            favorited
+              ? 'bg-red-500 text-white opacity-100'
+              : 'bg-white/95 text-slate-500 hover:bg-white hover:text-red-500',
+          )}
+        >
+          <Heart className={cn('w-4 h-4', favorited && 'fill-current')} />
+        </button>
 
         {/* Hover shimmer */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -106,16 +125,20 @@ export function StackzeroProductCard({ product, className = '' }: StackzeroProdu
       </CardContent>
 
       {/* ── Footer / Actions ───────────────────────────────────── */}
-      <CardFooter className="flex items-center gap-2 p-4 pt-3 border-t border-slate-100 bg-slate-50/50">
-        <Button
-          to={`/productos/${product.slug}`}
-          variant="default"
-          size="sm"
-          className="flex-1"
-          iconRight={<ArrowRight className="w-3.5 h-3.5" />}
+      <CardFooter className="grid grid-cols-2 gap-2 p-4 pt-3 border-t border-slate-100 bg-slate-50/50">
+        <button
+          type="button"
+          onClick={() => addToCart(product)}
+          className={cn(
+            'inline-flex h-9 items-center justify-center gap-1.5 rounded-lg px-2 text-xs font-bold transition-colors',
+            inCart
+              ? 'bg-[#003865] text-white'
+              : 'border border-[#003865] text-[#003865] hover:bg-[#003865] hover:text-white',
+          )}
         >
-          Ver ficha
-        </Button>
+          <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
+          {inCart ? 'En lista' : 'Agregar'}
+        </button>
 
         <a
           href={whatsappUrl}
