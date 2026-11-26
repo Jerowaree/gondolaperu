@@ -219,6 +219,16 @@ export function Header() {
 
             {/* Acciones derecha */}
             <div className="flex items-center gap-0.5 sm:gap-2 shrink-0">
+              {/* Acceso móvil: solo icono y antes de favoritos */}
+              <Link
+                to="/login"
+                className="inline-flex sm:hidden p-1.5 text-slate-500 hover:text-[#003865] hover:bg-slate-100 transition-colors"
+                aria-label="Iniciar sesión"
+                title="Iniciar sesión"
+              >
+                <User className="w-5 h-5" />
+              </Link>
+
               {/* Favoritos */}
               <Link
                 to="/favoritos"
